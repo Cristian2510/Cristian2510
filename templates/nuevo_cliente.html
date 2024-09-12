@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuevo Cliente</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/ClientesNuevo.css') }}">
+    <script>
+        function disableSubmitButton() {
+            document.getElementById('submit-btn').disabled = true;
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Nuevo Cliente</h1>
+        <form method="post" class="form-container" action="{{ url_for('crear_cliente') }}" onsubmit="disableSubmitButton()">
+            <div class="form-group">
+                <label for="Descripcion">Descripción:</label>
+                <input type="text" class="form-control" id="Descripcion" name="DESC_CLIENTE" required>
+            </div>
+            <div class="form-group">
+                <label for="Direccion">Dirección:</label>
+                <input type="text" class="form-control" id="Direccion" name="Direccion" required>
+            </div>
+            <div class="form-group">
+                <label for="Ciudad">Ciudad:</label>
+                <select class="form-control" id="Ciudad" name="COD_CIUDAD" required>
+                    {% for ciudad in ciudades %}
+                        <option value="{{ ciudad[0] }}">{{ ciudad[0] }}-{{ ciudad[1] }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Ruc">RUC:</label>
+                <input type="text" class="form-control" id="Ruc" name="RUC" required>
+            </div>
+            <div class="form-group">
+                <label for="Telefono">Teléfono:</label>
+                <input type="text" class="form-control" id="Telefono" name="TELEFONO" required>
+            </div>
+            <div class="form-group">
+                <label for="Correo">Correo:</label>
+                <input type="email" class="form-control" id="Correo" name="CORREO" required>
+            </div>
+            <div class="form-group">
+                <label for="Correo2">Correo 2:</label>
+                <input type="email" class="form-control" id="Correo2" name="CORREO_2">
+            </div>
+            <div class="form-group">
+                <label for="Cedula">Cédula:</label>
+                <input type="number" class="form-control" id="Cedula" name="CEDULA" required>
+            </div>
+            <div class="form-buttons">
+                <button type="submit" class="btn btn-primary" id="submit-btn">Guardar</button>
+                <button type="button" class="btn btn-secondary" onclick="location.href='{{ url_for('clientes') }}'">Cancelar</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

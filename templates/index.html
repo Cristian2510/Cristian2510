@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/login.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <img src="{{ url_for('static', filename='Imagen/LogoPrincipal.jpg') }}" alt="Logo" class="logo">
+            <h2>Login</h2>
+            <form action="{{ url_for('login') }}" method="post">
+                <label for="username">Usuario</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Seña</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit" class="ingresar">Ingresar</button>
+            </form>
+            <button onclick="location.href='{{ url_for('new_user') }}'" class="usuario-nuevo">Usuario Nuevo</button>
+            <button onclick="location.href='/'" class="salir-aplicativo">Salir Aplicativo</button>
+            <ul>
+                {% for message in get_flashed_messages() %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

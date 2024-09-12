@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Principal</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/menu.css') }}">
+</head>
+<body>
+    <div class="sidebar">
+        <h1>Menu Principal</h1>
+        <button class="menu-btn" onclick="toggleSubmenu(this)">CATASTROS</button>
+        <div class="submenu">
+            <a href="#" onclick="loadContent('clientes')">Clientes</a>
+            <a href="#">Productos</a>
+            <a href="#">Cotizacion</a>
+            <a href="#">Vendedor</a>
+            <a href="#">Deposito</a>
+        </div>
+        <button class="menu-btn" onclick="toggleSubmenu(this)">FACTURACION</button>
+        <div class="submenu">
+            <a href="#">Pedido Compras</a>
+            <a href="#">Compras</a>
+            <a href="#">Presupuestos</a>
+            <a href="#">Factura de Venta</a>
+            <a href="#">Factura de Servicio</a>
+            <a href="#">Nota de Credito</a>
+            <a href="#">Nota de Remision</a>
+            <a href="#">Nota de Credito Proveedor</a>
+        </div>
+        <button class="menu-btn" onclick="toggleSubmenu(this)">FINANCIERO</button>
+        <div class="submenu">
+            <a href="#">Orden de Compra</a>
+            <a href="#">Gastos</a>
+            <a href="#">Transferencia entre Ctas</a>
+            <a href="#">Pago de Facturas</a>
+            <a href="#">Cobros de Facturas</a>
+            <a href="#">Anticipos Recibidos</a>
+            <a href="#">Anticipos Otorgado</a>
+            <a href="#">Anticipo Proveedor</a>
+        </div>
+        <button class="menu-btn" onclick="toggleSubmenu(this)">INFORMES</button>
+        <div class="submenu">
+            <a href="#">Informe de Compras</a>
+            <a href="#">Informe de Ventas</a>
+            <a href="#">Informe de Cuenta Corrientes</a>
+        </div>
+        <button class="menu-btn" onclick="window.location.href='/close_app'">Cerrar Aplicativo</button>
+    </div>
+    <div class="content" id="main-content">
+        <!-- Aquí se cargará el contenido dinámicamente -->
+    </div>
+    <script>
+        function toggleSubmenu(button) {
+            button.classList.toggle('active');
+            let submenu = button.nextElementSibling;
+            submenu.classList.toggle('active');
+            let allSubmenus = document.querySelectorAll('.submenu');
+            allSubmenus.forEach(function(sm) {
+                if (sm !== submenu) {
+                    sm.classList.remove('active');
+                }
+            });
+        }
+
+        function loadContent(page) {
+            fetch('/' + page)
+                .then(response => response.text())
+                .then(html => {
+                    document.getElementById('main-content').innerHTML = html;
+                    document.querySelector('.sidebar').classList.add('collapsed');
+                })
+                .catch(error => {
+                    console.warn('Algo salió mal.', error);
+                });
+        }
+    </script>
+</body>
+</html>
